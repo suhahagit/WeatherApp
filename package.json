@@ -22,6 +22,8 @@
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
     "jQuery": "^1.7.4",
-    "mongoose": "^5.11.1"
+    "kelvin-to-celsius": "^1.1.0",
+    "mongoose": "^5.11.1",
+    "urllib": "^2.36.1"
   }
 }
