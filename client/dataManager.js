@@ -7,18 +7,15 @@ class dataManager {
     async getDataFromDB() {
         const cities = await $.get(`/cities`)
         this.cityData = cities
-        console.log(this.cityData)
     }
 
     async getCityData(cityName) {
         const city = await $.get(`/city/${cityName}`)
         this.cityData.push(city)
-        console.log(this.cityData)
     }
 
     async saveCity(cityName) {
-        const city = this.cityData.find(c => c.name == cityName)
-        console.log(this.cityData.find(c => c.name == cityName))
+        const city = await this.cityData.find(c => c.name == cityName)
         $.post(`/city`, city)
     }
 

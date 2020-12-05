@@ -8,14 +8,43 @@
 </head>
 <body>
 
+    <div id = 'container'>
+        
+        <div id = 'input-bar'>
+            <input id = 'input' type = 'text' placeholder="Search City">
+            <button id = 'btn' onclick="handleSearch()">Search!</button>
+        </div>
 
-    
+        <div id = 'cities-container'></div>
+
+    </div>
+
+    <script id = "cities-template" type = "text/x-handlebars-template">
+        {{#each cityData}}
+            <div class = 'city'>
+                <div class = 'details'>
+                    <p class = 'name'>{{name}}</p>
+                    <p class = 'temp'>{{temperature}}°</p>
+                </div>
+                <div class = 'con'>
+                    <p class = 'condition'>{{condition}}</p>
+                    <img class = 'conditionPic' src = '{{conditionPic}}'>
+                </div>
+                    {{#if isSaved}}
+                    <div class = "btn remBtn" onclick="removeCity(this)">-</div>
+                    {{else}}
+                    <div class = "btn saveBtn" onclick="saveCity(this)">+</div>
+                    {{/if}}
+            </div>
+        {{/each}}
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
     <!-- <script src="/jquery/client/jquery.js"></script>
     <script src="/handlebars/client/handlebars.js"></script> -->
     <script src="dataManager.js"></script>
-    <script src="renderer.js"></script>
+    <script src="render.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
