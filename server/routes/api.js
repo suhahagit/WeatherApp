@@ -10,7 +10,7 @@ router.get('/sanity', (req, res) => {
 
 //return specific city data
 router.get('/city/:cityName', (req, res) => {
-  urllib.request(`api.openweathermap.org/data/2.5/weather?q=${req.params.cityName}&appid=295ab86dc4a4d0757db4268fff19395c`, (err, data, response) => {
+  urllib.request(`api.openweathermap.org/data/2.5/weather?q=${req.params.cityName}&appid=484da5e921c1d538aee222ffd65ca2da`, (err, data, response) => {
     if (err) {
       console.log('API request error')
       throw err;
@@ -19,7 +19,9 @@ router.get('/city/:cityName', (req, res) => {
     const weather = {
       name: weatherData.name,
       temperature: kelvinToCelsius(weatherData.main.temp),
-      condition: weatherData.weather[0].description
+      condition: weatherData.weather[0].description,
+      conditionPic: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
+      isSaved: false
     }
     res.send(weather)
   })
@@ -36,11 +38,11 @@ router.get('/cities', async (req, res) => {
 })
 
 //save new city to db
-router.post('/city', async (req, res) => {
+router.post('/city', async function(req, res){
   try {
-    const city = new City({...req.body, conditionPic: `${req.body.condition}Pic`}) 
-    city.save()
-        .then(c => {res.send(c)})
+    const city = new City({...req.body, isSaved: true}) 
+    const saved = await city.save()
+    res.send(saved)
   } catch (error) {
     res.send(error)
   }
